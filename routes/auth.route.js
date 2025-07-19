@@ -5,6 +5,7 @@ import {
   signupController,
 } from "../controllers/auth.controller.js";
 import authMiddleware from "../middleware/auth.middleware.js";
+import User from "../models/user.model.js";
 
 const router = Router();
 
