@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import userRoutes from "./routes/auth.route.js"
 import { Server as SocketIOServer } from "socket.io";
 import cors from "cors"
+import job from "./utils/cronJobs.js";
 
 import { connectDB } from "./utils/db.js";
 import createRoomRoutes from "./routes/room.route.js";
@@ -20,6 +21,7 @@ const io = new SocketIOServer(server,{
   }
 });
 connectDB();
+job.start(); // Start the cron job to keep the server alive
 
 app.use(express.json())
 app.use(cors());
