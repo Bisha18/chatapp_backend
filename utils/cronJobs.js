@@ -2,7 +2,7 @@ import cron from "cron";
 import https from "https";
 import dotenv from "dotenv"
 
-const API_URL = "";
+const API_URL = "https://chatappxyz.onrender.com";
 
 const job = new cron.CronJob("*/14 * * * *", function () {
   // Ensure process.env.API_URL is defined when deploying, e.g., for keep-alive pings.
