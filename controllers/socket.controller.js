@@ -5,7 +5,7 @@ import {
   addConnectedUser,
   getConnectedUserBySocketId,
   getConnectedUsersInRoom,
-  removeConnectedUser, // Make sure removeConnectedUser is imported as well
+  removeConnectedUser,
 } from "../utils/socket.js";
 
 const setupSocketHandlers = (io) => {
@@ -13,13 +13,11 @@ const setupSocketHandlers = (io) => {
     console.log(`A new client connected: ${socket.id}`);
 
     socket.on("joinRoom", async ({ email, roomId, userId }) => {
-      // Corrected logic for leaving previous room
       const currentUser = getConnectedUserBySocketId(socket.id);
       if (currentUser && currentUser.currentRoomId) {
         const prevRoomId = currentUser.currentRoomId;
         socket.leave(prevRoomId);
         console.log(`User ${email} left room ${prevRoomId}`);
-        // FIX: Emit updated user list to the PREVIOUS room
         io.to(prevRoomId).emit("roomUsers", getConnectedUsersInRoom(prevRoomId));
       }
 
